@@ -18,7 +18,6 @@
     }
 }
 
-
 @mixin boton($bgColor, $colorTexto) {
     background-color: $bgColor;
     padding: 1.5rem 4rem;
@@ -45,4 +44,15 @@
     display: grid;
     gap: $espaciado;
     grid-template-columns: repeat($columnas, 1fr);
+}
+
+@mixin textoDegradado($color) {
+    color: transparent;
+    background: linear-gradient(to right, $color 0%,  color.adjust($color, $lightness: 30%) 100%);
+    background-clip: text;
+    text-align: center;
+    font-size: 7rem;
+    @include tablet {
+        font-size: 10rem;
+    }
 }
