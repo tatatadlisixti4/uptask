@@ -1,6 +1,6 @@
-<div class="contenedor">
-    <h1>UpTask</h1>
-    <p>Crea y Aministra tus Proyectos</p>
+<div class="contenedor login">
+    <h1 class="uptask">UpTask</h1>
+    <p class="tagline">Crea y Aministra tus Proyectos</p>
     <div class="contenedor-sm">
         <p class="descripcion-pagina">Iniciar Sesión</p>
         <form class="formulario" method="POST" action="/">
@@ -23,7 +23,7 @@
                     name="password"
                 />
             </div>
-            <input type="submint" class="boton" value="Iniciar Sesión">
+            <input type="submit" class="boton" value="Iniciar Sesión">
         </form>
         <div class="acciones">
             <a href="/crear">¿Aún no tienes una cuenta? Obtenen una</a>
