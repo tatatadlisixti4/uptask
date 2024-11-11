@@ -6,7 +6,8 @@
         "psr-4": {
             "MVC\\" : "./",
             "Controllers\\" : "./controllers",
-            "Model\\" : "./models"
+            "Model\\" : "./models", 
+            "Classes\\" : "./classes"
         }
     },
     "require": {
