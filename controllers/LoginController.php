@@ -1,17 +1,17 @@
 <?php 
 namespace Controllers;
 use MVC\Router;
+use Model\Usuario;
 
 class LoginController {
     public static function login(Router $router) {
-
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Login / Post";
         }
-
         // Render a la vista
         $router->render('auth/login',  [
             'titulo' => 'Iniciar Sesión'
+
         ]);
     }
 
@@ -20,14 +20,41 @@ class LoginController {
     }
 
     public static function crear(Router $router) {
-
+        $usuario = new Usuario;
+        $alertas = [];
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            echo "Crear / Post";
+            $usuario->sincronizar($_POST);
+            $alertas = $usuario->validarNuevaCuenta(); 
+            if(empty($alertas)) {
+                $existeUsuario = Usuario::where('email', $usuario->email);
+                
+                if($existeUsuario) {
+                    Usuario::setAlerta('error', 'El Usuario ya está registrado');
+                    $alertas = Usuario::getAlertas();
+                } else {
+                    // Hashear el password
+                    $usuario->hashPassword();
+
+                    // Eliminar password2
+                    unset($usuario->password2);
+
+                    // Generar el Token
+                    $usuario->crearToken();
+
+                    // Crear un nuevo usuario
+                    $resultado = $usuario->guardar();
+                    if($resultado) {
+                        header('Location: /mensaje');
+                    }
+                }
+            }
         }
 
         // Render a la vista
         $router->render('auth/crear',  [
-            'titulo' => 'Crea tu Cuenta'
+            'titulo' => 'Crea tu Cuenta', 
+            'usuario' => $usuario,
+            'alertas' => $alertas 
         ]);
     }
 
