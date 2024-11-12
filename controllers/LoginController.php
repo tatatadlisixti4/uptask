@@ -34,7 +34,6 @@ class LoginController {
                         Usuario::setAlerta('error', 'Password incorrecto, PAYASO');
                     }
                 }
-                
             }
         }
         $alertas = Usuario::getAlertas(); 
@@ -42,7 +41,6 @@ class LoginController {
         $router->render('auth/login',  [
             'titulo' => 'Iniciar Sesión',
             'alertas' => $alertas
-
         ]);
     }
 
