@@ -24,11 +24,11 @@
             background-color: v.$blanco;
         }
         input[type="submit"] {
-            @include m.boton(v.$indigo, v.$blanco);
             padding: 1rem; // El pading del mixin boton es > a 1rem, por eso aqui lo desminuimos.
             text-transform: uppercase;
             font-weight: bold;
             font-size: 1.4rem; // Lo mismo
+            @include m.boton(v.$indigo, v.$blanco);
         }
     }
 }
