@@ -6,6 +6,11 @@ use Model\Usuario;
 
 class LoginController {
     public static function login(Router $router) {
+        // Verificar si hay una sesión en curso
+        session_start();
+        if(!empty($_SESSION)) header('Location: /dashboard'); 
+        
+        // Proceso si no hay sesión en curso
         $alertas = [];
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $auth = new Usuario($_POST);
