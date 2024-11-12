@@ -1,8 +1,11 @@
 <?php
 namespace Controllers;
 
-use Model\Usuario;
 use MVC\Router;
+use Model\Usuario;
+use Model\Proyecto;
+
+
 
 class DashboardController {
     public static function index(Router $router) {
@@ -20,11 +23,22 @@ class DashboardController {
         isAuth();
         $alertas = [];
 
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $proyecto = new Proyecto($_POST);
+
+            // Validación
+            $alertas = $proyecto->validarProyecto();
+
+            if(empty($alertas)) {
+                // Guardar proyecto
+                
+            }
+        }
+
         // $alertas = Usuario::getAlertas(); 
         $router->render('dashboard/crear-proyecto',  [
             'titulo' => 'Crear Proyecto',
             'alertas' => $alertas
-
         ]);
     }
 
