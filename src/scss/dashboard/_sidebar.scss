@@ -22,9 +22,9 @@
             border-radius: .5rem;
             transition: background-color 200ms ease-in;
 
-            &:hover {
+            &:hover,  
+            &.activo{
                 background-color: color.adjust(v.$indigo, $lightness: -20%);
-                border-radius: .5rem;
             }
         }
 

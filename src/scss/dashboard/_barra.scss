@@ -22,11 +22,10 @@
     }
 
     .cerrar-sesion {
-        @include m.boton (color.adjust(v.$indigo, $lightness: -20%), v.$blanco);
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         padding: 1rem;
         border-radius: .5rem;
-    }
 
-
+        @include m.boton (color.adjust(v.$indigo, $lightness: -20%), v.$blanco);
+    }        
 }
