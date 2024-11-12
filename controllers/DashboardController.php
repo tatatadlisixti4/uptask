@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use Model\Usuario;
 use MVC\Router;
 
 class DashboardController {
@@ -17,8 +18,13 @@ class DashboardController {
     public static function crear_proyecto (Router $router) {
         session_start();
         isAuth();
+        $alertas = [];
+
+        // $alertas = Usuario::getAlertas(); 
         $router->render('dashboard/crear-proyecto',  [
             'titulo' => 'Crear Proyecto',
+            'alertas' => $alertas
+
         ]);
     }
 
