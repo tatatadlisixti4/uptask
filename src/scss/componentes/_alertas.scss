@@ -15,4 +15,10 @@
         border-left: 1.5rem solid v.$rojo;
         color: v.$rojo;
     }
+
+    &.exito {
+        background-color: color.adjust(v.$verde, $lightness: 60%);
+        border-left: 1.5rem solid v.$verde;
+        color: v.$verde;
+    }
 }

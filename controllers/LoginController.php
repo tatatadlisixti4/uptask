@@ -72,15 +72,13 @@ class LoginController {
         $router->render('auth/olvide',  [
             'titulo' => 'Olvidé mi Password'
         ]);
-
-
     }
 
     public static function reestablecer(Router $router) {
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {  
         }
+
         $router->render('auth/reestablecer',  [
             'titulo' => 'Reestablecer Password'
         ]);
@@ -93,8 +91,33 @@ class LoginController {
     }
 
     public static function confirmar(Router $router) {
+        $alertas = [];
+
+
+        $token = s($_GET['token']);
+        if(!$token) header('Location: /');
+        $usuario = Usuario::where('token', $token);
+
+        if(empty($usuario)) {
+            // No se encontro match entre el token de la url y la bd
+            Usuario::setAlerta('error', 'Token No Válido');
+        } else {
+            // Confirmar la cuenta
+            $usuario->confirmado = 1;
+            $usuario->token = "";
+            unset($usuario->password2);
+            
+            // Guardar usuario
+            $usuario->guardar();
+            Usuario::setAlerta('exito', 'Cuenta Comprobada Correctamente');
+            
+        }
+
+        $alertas = Usuario::getAlertas();
+
         $router->render('auth/confirmar',  [
-            'titulo' => 'Confirma tu cuenta UpTask'
+            'titulo' => 'Confirma tu cuenta UpTask', 
+            'alertas' => $alertas
         ]);
     }
     
