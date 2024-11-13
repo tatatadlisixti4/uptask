@@ -1,0 +1,1 @@
+!function(){const o=(e="#agregar-tarea",document.querySelector(e));var e,n,r;n="click",r=function(){console.log("Mostrando formulario")},o.addEventListener(n,r)}();

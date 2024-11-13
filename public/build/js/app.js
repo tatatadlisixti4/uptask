@@ -1,0 +1,1 @@
+const $=e=>document.querySelector(e),$$=e=>document.querySelectorAll(e),$$$=(e,$,t)=>e.addEventListener($,t),$$$$=(e,$)=>e.querySelector($);
