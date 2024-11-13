@@ -38,7 +38,7 @@
         `;
         setTimeout(() => {
             ($('.formulario')).classList.add('animar');
-        }, 3000);
+        }, 0);
 
         console.log(modal);
         ($('body')).appendChild(modal); 
