@@ -36,10 +36,11 @@
                 </div>
             </form>
         `;
+        setTimeout(() => {
+            ($('.formulario')).classList.add('animar');
+        }, 3000);
 
         console.log(modal);
-        ($('body')).appendChild(modal);
-        
-        
+        ($('body')).appendChild(modal); 
     }
 })();

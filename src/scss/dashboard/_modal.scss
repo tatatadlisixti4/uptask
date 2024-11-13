@@ -1,0 +1,28 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+@use "sass:color";
+
+.modal {
+    
+    position: absolute;  // Si no le ponemos una posicion relavita a la que anclarse, usa la ventana global
+    background-color: rgb(0 0 0 / .8);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    .formulario {
+        // Los hijos están posicionados y anclados en relacion al padre, esto es pq heredan la misma posicion absolute.
+        max-width: 60rem;
+        background-color: v.$blanco;
+        padding: 2rem;
+        margin: 0 auto;
+        transform: translateY(-30rem); // Lo saco de la vista
+        &.animar {
+            position: relative; // Ahora el elemento está posicionado relativo a sí mismo
+            top: 50%;  // Posicion el elemento a la mitar, pero su inicio. Por lo que aun no está en el centro
+            transform: translateY(-50%); // Lo muevo verticalmente 30rem, pues el translate es en funcion a la altura del elemento
+    
+        }
+
+    }
+}
