@@ -28,8 +28,14 @@
             top: 50%;  // Posicion el elemento a la mitar, pero su inicio. Por lo que aun no está en el centro
             opacity: 1;
             transform: translateY(-50%); // Lo muevo verticalmente 30rem, pues el translate es en funcion a la altura del elemento
-    
         }
+
+        &.cerrar {
+            transform: translateY(-200%);
+            opacity: 0;
+        }
+
+
 
     }
 }

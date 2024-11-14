@@ -36,11 +36,26 @@
                 </div>
             </form>
         `;
+
+        // Gracias a la logica del modelo de concurrencias de js, es posible manejar los eventos del formulario, ya esta funcion se va a ejecutar cuando tanto la pila como la cola estén vacías y haya pasado el tiempo del settimeup, para ese entonces el html dinamico va a estar procesado
+
         setTimeout(() => {
             ($('.formulario')).classList.add('animar');
         }, 0);
 
-        console.log(modal);
+        // Delegation a continuacion ya que no podemos manejar los eventos en funcion a clases que fueron creadas con inner html. Entonces le delegaremos el manejo de eventos al contenedor padre creado via html y no dinamicamente, pero siempre y cuando el evento ocurra en la clase hija que queremos.
+
+        $$$(modal, 'click', (e) => {
+            e.preventDefault();
+            if(e.target.classList.contains('cerrar-modal')) {
+                ($('.formulario')).classList.add('cerrar');
+                setTimeout(() => {
+                    modal.remove();
+                }, 500);
+            } 
+        });
+
+        
         ($('body')).appendChild(modal); 
     }
 })();
