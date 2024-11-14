@@ -22,6 +22,26 @@
         transition-property: all;
         transition-duration: 400ms;
         transition-timing-function: ease-in;
+        border-radius: 1rem;
+
+        legend {
+            display: block; // Para poder centrar el legend con text-align: center
+            font-size: 2rem;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+        .opciones {
+            display: flex;
+            justify-content: space-between;
+        }
+        .submit-nueva-tarea {
+            @include m.boton(v.$indigo, v.$blanco);
+        }
+
+        .cerrar-modal { 
+            @include m.boton(v.$naranja, v.$blanco);
+        }
 
         &.animar {
             position: relative; // Ahora el elemento está posicionado relativo a sí mismo
@@ -34,8 +54,6 @@
             transform: translateY(-200%);
             opacity: 0;
         }
-
-
 
     }
 }

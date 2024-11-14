@@ -54,8 +54,6 @@
                 }, 500);
             } 
         });
-
-        
         ($('body')).appendChild(modal); 
     }
 })();
