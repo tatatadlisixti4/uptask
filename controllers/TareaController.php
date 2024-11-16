@@ -1,13 +1,18 @@
 <?php
 namespace Controllers;
-class TareaControler {
+class TareaController {
     public static function index() {
 
     }
 
     public static function crear() {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+            $array = [
+                'respuesta' => true,
+                'nombre' => 'Thadli', 
+            ];
+            echo json_encode($array);
+            
         }
     }
 

@@ -91,7 +91,24 @@
     }
 
     // Consultar el servidor para añadir una nueva tarea al proyecto actual
-    function agregarTarea() {
-        
+    async function agregarTarea() {
+        const datos = new FormData();
+        datos.append('nombre', tarea);
+
+        try {
+            const url = 'http://localhost:3000/api/tarea';
+            const respuesta = await fetch(url,  {
+                method: 'POST', 
+                body: datos
+            });
+            console.log(respuesta);
+            const resultado = await respuesta.json();
+            console.log(resultado);
+            
+            
+        } catch(error) {
+            console.log(error);
+            
+        }
     }
 })();
