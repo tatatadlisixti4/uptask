@@ -1,4 +1,4 @@
-(function() {
+(function() { // Función encapsulada para no usar variables de otros archivos js
     const $ = selector => document.querySelector(selector);
     const $$ = selector => document.querySelectorAll(selector);
     const $$$ = (element, event, handler) => element.addEventListener(event, handler);
