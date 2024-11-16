@@ -23,6 +23,10 @@
         transition-duration: 400ms;
         transition-timing-function: ease-in;
         border-radius: 1rem;
+        input[type="text"] {
+            border: 1px solid v.$gris;
+            border-radius: .5rem;
+        }
 
         legend {
             display: block; // Para poder centrar el legend con text-align: center

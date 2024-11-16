@@ -58,18 +58,40 @@
             }
             
         });
-        ($('body')).appendChild(modal); 
+        ($('.dashboard')).appendChild(modal); 
     }
 
     function submitFormularioNuevaTarea() {
         const tarea = $('#tarea').value.trim();
-        
         if(tarea === '') {
-            console.log('La tarea no tiene nombre');
-        } else {
-            console.log(tarea);
-            
+            mostrarAlerta('El nombre de la tarea es obligatorio', 'error', $('.formulario legend'));
+            return;
         }
+
+        agregarTarea(tarea);
+    }
+    // Mostrar un mensaje en la interfaz
+    function mostrarAlerta(mensaje, tipo, referencia) {
+        const alertaPrevia = $('.alerta');
+        if(alertaPrevia) {
+            alertaPrevia.remove();
+        }
+
+        const alerta = document.createElement('DIV');
+        alerta.classList.add('alerta', tipo);
+        alerta.textContent = mensaje;
+
+        // Dentro del padre inserto despues del hijo una alerta. Esto es pq no queremos insertar dentro del legend e incumplir normas de html
+        referencia.parentElement.insertBefore(alerta, referencia.nextElementSibling);  
+
+        // Eliminar la alerta despues de 5 segundos
+        setTimeout( ()=> {
+            alerta.remove();
+        }, 2000);
+    }
+
+    // Consultar el servidor para añadir una nueva tarea al proyecto actual
+    function agregarTarea() {
         
     }
 })();
