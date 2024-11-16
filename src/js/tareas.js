@@ -52,8 +52,24 @@
                 setTimeout(() => {
                     modal.remove();
                 }, 500);
-            } 
+            }
+            if(e.target.classList.contains('submit-nueva-tarea')) {
+                submitFormularioNuevaTarea();
+            }
+            
         });
         ($('body')).appendChild(modal); 
+    }
+
+    function submitFormularioNuevaTarea() {
+        const tarea = $('#tarea').value.trim();
+        
+        if(tarea === '') {
+            console.log('La tarea no tiene nombre');
+        } else {
+            console.log(tarea);
+            
+        }
+        
     }
 })();
