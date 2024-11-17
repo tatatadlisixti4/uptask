@@ -91,9 +91,10 @@
     }
 
     // Consultar el servidor para añadir una nueva tarea al proyecto actual
-    async function agregarTarea() {
+    async function agregarTarea(tarea) {
         const datos = new FormData();
         datos.append('nombre', tarea);
+        datos.append('proyectoId', obtenerProyecto());
 
         try {
             const url = 'http://localhost:3000/api/tarea';
@@ -104,11 +105,24 @@
             console.log(respuesta);
             const resultado = await respuesta.json();
             console.log(resultado);
-            
-            
+
         } catch(error) {
             console.log(error);
             
         }
     }
+
+    function obtenerProyecto() {
+        // Convertir los datos del query string en un objeto js estándar
+        // [1] window.loca... : Devuelve el querystring, URLsearch...: hace un objeto con la llave y valor del query string
+        const proyectoParams = new URLSearchParams(window.location.search); 
+
+        // [2].entries() : devuelve el iterador que contiene un array de pares llave y valor. .fromEntries: construye un objeto gracias al iterador
+        const proyecto = Object.fromEntries(proyectoParams.entries()); 
+
+        // [3] Sin esta transformación de objeto urlsearch... a objeto puro, habría que acceder a los elementeos del query string de forma más engorrosa, con metodos como get, etc.
+        return proyecto.id; 
+    }
+
+
 })();
