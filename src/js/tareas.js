@@ -5,6 +5,7 @@
     const $$$$ = (father, son) => father.querySelector(son);
 
     obtenerTareas();
+    let tareas = [];
 
     // Botón para mostrar el modal de Aagregar Tarea
     const nuevaTareaBtn = $('#agregar-tarea');
@@ -17,14 +18,18 @@
             const respuesta = await fetch(url);
             console.log(respuesta);
             const resultado = await respuesta.json();
-            const {tareas} = resultado;
-            mostrarTareas(tareas);
+            // const {tareas} = resultado;
+            tareas = resultado.tareas;
+            mostrarTareas();
+
         } catch(error) {
             console.log(error);
         }
     }
 
-    function mostrarTareas(tareas) {
+    function mostrarTareas() {
+        limpiarTareas();
+
         if(tareas.length === 0) {
             const contenedorTareas = $('#listado-tareas');
             const textoNoTareas = document.createElement('LI');
@@ -178,8 +183,18 @@
                 const modal = $('.modal');
                 setTimeout(()=> {
                     modal.remove();
-                    window.location.reload();
+                    //window.location.reload(); 
                 }, 3000);
+
+                // Agregar el objeto de tarea al global de tareas
+                const tareaObj = {
+                    id: String(resultado.id), 
+                    nombre: tarea,
+                    estado: "0", 
+                    proyectoId: resultado.proyectoId
+                }
+                tareas = [...tareas, tareaObj];
+                mostrarTareas();
             }
 
         } catch(error) {
@@ -199,5 +214,10 @@
         return proyecto.id; 
     }
 
-
+    function limpiarTareas() {
+        const listadoTareas = $('#listado-tareas');
+        while(listadoTareas.fistChild) {
+            listadoTareas.removeChild(listadoTareas.firstChild);
+        }
+    }
 })();
