@@ -57,7 +57,6 @@
             btnEstadoTarea.textContent = estados[tarea.estado];
             btnEstadoTarea.dataset.estadoTarea = tarea.estado;            
 
-
             const btnEliminarTarea = document.createElement('BUTTON');
             btnEliminarTarea.classList.add('eliminar-tarea');
             btnEliminarTarea.dataset.idTarea = tarea.id;
@@ -71,7 +70,6 @@
             contenedorTarea.appendChild(opcionesDiv);
             const listadoTareas = $('#listado-tareas');
             listadoTareas.appendChild(contenedorTarea);
-
         });
     }
 
