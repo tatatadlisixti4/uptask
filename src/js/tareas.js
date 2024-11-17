@@ -178,6 +178,7 @@
                 const modal = $('.modal');
                 setTimeout(()=> {
                     modal.remove();
+                    window.location.reload();
                 }, 3000);
             }
 
