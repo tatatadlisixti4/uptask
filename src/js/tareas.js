@@ -87,14 +87,14 @@
         // Eliminar la alerta despues de 5 segundos
         setTimeout( ()=> {
             alerta.remove();
-        }, 2000);
+        }, 3000);
     }
 
     // Consultar el servidor para añadir una nueva tarea al proyecto actual
     async function agregarTarea(tarea) {
         const datos = new FormData();
         datos.append('nombre', tarea);
-        datos.append('proyectoId', obtenerProyecto());
+        datos.append('proyectoId', obtenerProyecto()); //obtenerProyecto()
 
         try {
             const url = 'http://localhost:3000/api/tarea';
@@ -105,6 +105,9 @@
             console.log(respuesta);
             const resultado = await respuesta.json();
             console.log(resultado);
+
+            // Cuando se genera un error pero en el lado del servidor, ya sea por un envio de id falso u otra trampa. No es un error que el catch puede verificar ya que la conexión con el endpoit fue exitosa
+            mostrarAlerta(resultado.mensaje, resultado.tipo, $('.formulario legend'));
 
         } catch(error) {
             console.log(error);
