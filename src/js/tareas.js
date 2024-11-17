@@ -4,9 +4,30 @@
     const $$$ = (element, event, handler) => element.addEventListener(event, handler);
     const $$$$ = (father, son) => father.querySelector(son);
 
+    obtenerTareas();
+
     // Botón para mostrar el modal de Aagregar Tarea
     const nuevaTareaBtn = $('#agregar-tarea');
     $$$(nuevaTareaBtn, 'click', mostrarFormulario);
+
+    async function obtenerTareas() {
+        try {
+            const id = obtenerProyecto();
+            const url = `http://localhost:3000/api/tareas?id=${id}`;
+            const respuesta = await fetch(url);
+            console.log(respuesta);
+            const resultado = await respuesta.json();
+            const {tareas} = resultado;
+            mostrarTareas(tareas);
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    function mostrarTareas(tareas) {
+        console.log(tareas);
+        
+    }
 
     function mostrarFormulario() {
         const modal = document.createElement('DIV');
