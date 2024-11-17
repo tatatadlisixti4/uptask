@@ -94,11 +94,11 @@
     async function agregarTarea(tarea) {
         const datos = new FormData();
         datos.append('nombre', tarea);
-        datos.append('proyectoId', obtenerProyecto()); //obtenerProyecto()
+        datos.append('proyectoId', obtenerProyecto()); 
 
         try {
             const url = 'http://localhost:3000/api/tarea';
-            const respuesta = await fetch(url,  {
+            const respuesta = await fetch(url, {
                 method: 'POST', 
                 body: datos
             });
@@ -109,9 +109,15 @@
             // Cuando se genera un error pero en el lado del servidor, ya sea por un envio de id falso u otra trampa. No es un error que el catch puede verificar ya que la conexión con el endpoit fue exitosa
             mostrarAlerta(resultado.mensaje, resultado.tipo, $('.formulario legend'));
 
+            if(resultado.tipo === 'exito') {
+                const modal = $('.modal');
+                setTimeout(()=> {
+                    modal.remove();
+                }, 3000);
+            }
+
         } catch(error) {
             console.log(error);
-            
         }
     }
 

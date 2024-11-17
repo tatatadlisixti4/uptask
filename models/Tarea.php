@@ -1,6 +1,7 @@
 <?php 
 namespace Model;
 
+#[\AllowDynamicProperties]
 class Tarea extends ActiveRecord {
     protected static $tabla = 'tareas';
     protected static $columnasDB = ['id', 'nombre', 'estado', 'proyectoId'];
