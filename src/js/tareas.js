@@ -58,10 +58,20 @@
             btnEstadoTarea.dataset.estadoTarea = tarea.estado;            
 
 
-            console.log(btnEstadoTarea);
+            const btnEliminarTarea = document.createElement('BUTTON');
+            btnEliminarTarea.classList.add('eliminar-tarea');
+            btnEliminarTarea.dataset.idTarea = tarea.id;
+            btnEliminarTarea.textContent = 'Eliminar';
+
+            opcionesDiv.appendChild(btnEstadoTarea);
+            opcionesDiv.appendChild(btnEliminarTarea);
             
-            
-            
+
+            contenedorTarea.appendChild(nombreTarea);
+            contenedorTarea.appendChild(opcionesDiv);
+            const listadoTareas = $('#listado-tareas');
+            listadoTareas.appendChild(contenedorTarea);
+
         });
     }
 
