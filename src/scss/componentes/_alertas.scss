@@ -8,7 +8,7 @@
     font-weight: 900;
     font-size: 1.2rem;
     max-width: 80rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
 
     &.error {
         background-color: color.adjust(v.$rojo, $lightness: 60%);

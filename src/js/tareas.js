@@ -232,13 +232,13 @@
                 body: datos
             });
             const resultado = await respuesta.json();
-            console.log(respuesta);
-            
-            
+            if(resultado.respuesta.tipo === 'exito') {
+                mostrarAlerta(resultado.respuesta.mensaje, 'exito', $('.contenedor-nueva-tarea'));
+                
+            }
         } catch (error) {
             console.log(error);
         }
-
     }
 
     function obtenerProyecto() {
