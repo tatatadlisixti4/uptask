@@ -29,6 +29,7 @@
 
     function mostrarTareas() {
         limpiarTareas();
+        
 
         if(tareas.length === 0) {
             const contenedorTareas = $('#listado-tareas');
@@ -234,7 +235,16 @@
             const resultado = await respuesta.json();
             if(resultado.respuesta.tipo === 'exito') {
                 mostrarAlerta(resultado.respuesta.mensaje, 'exito', $('.contenedor-nueva-tarea'));
-                
+
+                tareas = tareas.map(tareaMemoria => { // Recorre y crea un nuevo arreglo sin mutar el original
+                    if(tareaMemoria.id === id) {
+                        console.log(tareaMemoria.id);
+                        console.log('Modificando', id);
+                        tareaMemoria.estado = estado;
+                    }
+                    return tareaMemoria;
+                }); 
+                mostrarTareas(); 
             }
         } catch (error) {
             console.log(error);
@@ -255,7 +265,7 @@
 
     function limpiarTareas() {
         const listadoTareas = $('#listado-tareas');
-        while(listadoTareas.fistChild) {
+        while(listadoTareas.firstChild) {
             listadoTareas.removeChild(listadoTareas.firstChild);
         }
     }
