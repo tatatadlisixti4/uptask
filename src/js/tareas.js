@@ -206,16 +206,39 @@
     }
 
     function cambiarEstadoTarea(tarea) {
-        console.log(tarea);
-        
+        console.log(tarea);   
         const nuevoEstado = tarea.estado === "1" ? "0" : "1";
         tarea.estado = nuevoEstado;
         actualizarTarea(tarea);
     }
 
-    function actualizarTarea(tarea) {
+    async function actualizarTarea(tarea) {
         console.log(tarea);
         
+        const {estado, id, nombre} = tarea;
+        const datos = new FormData();
+        datos.append('estado', estado);
+        datos.append('nombre', nombre);
+        datos.append('id', id);
+        datos.append('proyectoId', obtenerProyecto());
+
+        // for(let valor of datos.values()) {
+        //     console.log(valor);
+        // } 
+        try {
+            const url = 'http://localhost:3000/api/tarea/actualizar';
+            const respuesta = await fetch(url, {
+                method: 'POST', 
+                body: datos
+            });
+            const resultado = await respuesta.json();
+            console.log(respuesta);
+            
+            
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     function obtenerProyecto() {
