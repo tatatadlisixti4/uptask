@@ -5,7 +5,7 @@ use Model\Tarea;
 use Model\Proyecto;
 
 class TareaController {
-    public static function index() {
+    public static function index():void {
         $proyectoId = $_GET['id'];
         if(!$proyectoId)header('Location: /dashboard');
         $proyecto = Proyecto::where('url', $proyectoId);
@@ -20,7 +20,7 @@ class TareaController {
 
     }
 
-    public static function crear() {
+    public static function crear():void {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             $proyectoId = $_POST['proyectoId'];
@@ -49,7 +49,7 @@ class TareaController {
         }
     }
 
-    public static function actualizar() {
+    public static function actualizar():void {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validar que el proyecto exista
             $proyecto = Proyecto::where('url', $_POST['proyectoId']);
@@ -79,9 +79,29 @@ class TareaController {
         }
     }
 
-    public static function eliminar() {
+    public static function eliminar():void {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validar que el proyecto exista
+            $proyecto = Proyecto::where('url', $_POST['proyectoId']);
 
+            session_start();
+            if(!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
+                $respuesta = [
+                    'tipo' => 'error',
+                    'mensaje' => 'Hubo un error al actualizar la tarea'
+                ];
+                echo json_encode($respuesta);
+                return;
+            }
+            $tarea = new Tarea($_POST);
+            $tarea->proyectoId = $proyecto->id;
+            $resultado = $tarea->eliminar();
+            $resultado = [
+                'tipo' => 'exito',
+                'resultado' => $resultado,
+                'mensaje' => 'Eliminado Correctamente'
+            ];
+            echo json_encode($resultado);
         }
     }
 }

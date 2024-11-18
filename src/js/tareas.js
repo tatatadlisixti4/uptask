@@ -16,7 +16,6 @@
             const id = obtenerProyecto();
             const url = `http://localhost:3000/api/tareas?id=${id}`;
             const respuesta = await fetch(url);
-            console.log(respuesta);
             const resultado = await respuesta.json();
             // const {tareas} = resultado;
             tareas = resultado.tareas;
@@ -179,9 +178,7 @@
                 method: 'POST', 
                 body: datos
             });
-            console.log(respuesta);
             const resultado = await respuesta.json();
-            console.log(resultado);
 
             // Cuando se genera un error pero en el lado del servidor, ya sea por un envio de id falso u otra trampa. No es un error que el catch puede verificar ya que la conexión con el endpoit fue exitosa
             mostrarAlerta(resultado.mensaje, resultado.tipo, $('.formulario legend'));
@@ -210,15 +207,12 @@
     }
 
     function cambiarEstadoTarea(tarea) {
-        console.log(tarea);   
         const nuevoEstado = tarea.estado === "1" ? "0" : "1";
         tarea.estado = nuevoEstado;
         actualizarTarea(tarea);
     }
 
     async function actualizarTarea(tarea) {
-        console.log(tarea);
-        
         const {estado, id, nombre} = tarea;
         const datos = new FormData();
         datos.append('estado', estado);
@@ -241,8 +235,6 @@
 
                 tareas = tareas.map(tareaMemoria => { // Recorre y crea un nuevo arreglo sin mutar el original
                     if(tareaMemoria.id === id) {
-                        console.log(tareaMemoria.id);
-                        console.log('Modificando', id);
                         tareaMemoria.estado = estado;
                     }
                     return tareaMemoria;
@@ -269,16 +261,39 @@
     }
 
     async function eliminarTarea(tarea) {
+        const {estado, id, nombre} = tarea;
         const datos = new FormData();
+        datos.append('estado', estado);
+        datos.append('nombre', nombre);
+        datos.append('id', id);
+        datos.append('proyectoId', obtenerProyecto());
+
         try {
-            console.log(tarea);
+            const url = 'http://localhost:3000/api/tarea/eliminar';
+            const respuesta = await fetch (url, {
+                method: 'POST',
+                body: datos
+            });
+            console.log(respuesta);
+            const resultado = await respuesta.json();
+            console.log(resultado);
+            if(resultado.resultado) {
+                mostrarAlerta(
+                    resultado.mensaje,
+                    resultado.tipo,
+                    $('.contenedor-nueva-tarea'),
+                );
+                //Swal.fire('Eliminado!', resultado.mensaje, 'success'); Alerta de eliminado de Swal
+                tareas = tareas.filter(tareaMemoria => tareaMemoria.id !== id);
+                mostrarTareas();
+            }
         } catch (error) {
             console.log(error);
         }
     }
 
     function obtenerProyecto() {
-        // Convertir los datos del query string en un objeto js estándar
+        // Convertir los datos de la query string en un objeto js estándar
         // [1] window.loca... : Devuelve el querystring, URLsearch...: hace un objeto con la llave y valor del query string
         const proyectoParams = new URLSearchParams(window.location.search); 
 
