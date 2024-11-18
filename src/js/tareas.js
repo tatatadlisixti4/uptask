@@ -9,7 +9,14 @@
 
     // Botón para mostrar el modal de Aagregar Tarea
     const nuevaTareaBtn = $('#agregar-tarea');
-    $$$(nuevaTareaBtn, 'click', mostrarFormulario);
+    /* Previamente "$$$(nuevaTareaBtn, 'click', mostrarFormulario)", pero si usamos esta función con un parámetro se va
+    * a ejecutar inmediatamente y no cuando el evento se desencadene. Es por esto que se usa un callback y, por otro lado
+    * de la forma antigua ocurría que se pasaba implícitamente el evento como parámetro, y ahora la función debe manejar
+    * un true o un false */
+
+    $$$(nuevaTareaBtn, 'click', () => {
+        mostrarFormulario(); // False por default
+    });
 
     async function obtenerTareas() {
         try {
@@ -51,6 +58,9 @@
 
             const nombreTarea = document.createElement('P');
             nombreTarea.textContent = tarea.nombre;
+            nombreTarea.ondblclick = function() {
+                mostrarFormulario(true, tarea);
+            }
 
             const opcionesDiv = document.createElement('DIV')
             opcionesDiv.classList.add('opciones');
@@ -84,26 +94,28 @@
         });
     }
 
-    function mostrarFormulario() {
+    function mostrarFormulario(editar = false, tarea = {}) {
+        console.log(tarea);
         const modal = document.createElement('DIV');
         modal.classList.add('modal');
         modal.innerHTML = `
             <form class="formulario nueva-tarea">
-                <legend>Añade una nueva tarea</legend>
+                <legend>${editar ? 'Editar Tarea' : 'Añade una nueva tarea'}</legend>
                 <div class="campo">
                     <label>Tarea</label>
                     <input
                         type="text"
                         name="tarea"
-                        placeholder="Añadir Tarea al Proyecto Actual"
+                        placeholder="${tarea.nombre ? 'Edita la Tarea' : 'Añadir Tarea al Proyecto Actual'}"
                         id="tarea"
+                        value="${tarea.nombre ? tarea.nombre : ''}"
                     />
                 </div>
                 <div class="opciones">
                     <input 
                         type="submit"
                         class="submit-nueva-tarea"
-                        value="Añadir Tarea"
+                        value="${tarea.nombre ? 'Guardar Cambios' : 'Añadir Tarea'}"
                     />    
                     <button 
                         type="button"
