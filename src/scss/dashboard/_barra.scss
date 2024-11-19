@@ -1,12 +1,34 @@
-@use 'base/variables' as v;
-@use 'base/mixins' as m;
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
 @use "sass:color";
 
-.barra {
-    background-color: v.$blanco;
-    padding: 1rem 2rem;
-    box-shadow: 1px 12px 9px -13px v.$gris;
+.barra-mobile {
+    background-color: v.$indigo;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+        color: v.$blanco;
+        margin: 0;
+    }
+    .menu {
+        img {
+            width: .8rem;
+        }
+    }
     @include m.tablet {
+        display: none;
+    }
+}
+
+.barra {
+    display: none;
+    @include m.tablet {
+        background-color: v.$blanco;
+        padding: 1rem 2rem;
+        box-shadow: 1px 12px 9px -13px v.$gris;
         display: flex;
         justify-content: space-between;
         align-items: center;
