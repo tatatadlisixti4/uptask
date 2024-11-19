@@ -1,1 +1,1 @@
-const $=e=>document.querySelector(e),$$=e=>document.querySelectorAll(e),$$$=(e,$,t)=>e.addEventListener($,t),$$$$=(e,$)=>e.querySelector($);
+const $=e=>document.querySelector(e),$$=e=>document.querySelectorAll(e),$$$=(e,$,n)=>e.addEventListener($,n),$$$$=(e,$)=>e.querySelector($),sidebar=$(".sidebar"),mobileMenuBtn=$("#mobile-menu");mobileMenuBtn&&$$$(mobileMenuBtn,"click",(function(){sidebar.classList.add("mostrar")}));

@@ -2,7 +2,6 @@
 @use '../base/mixins' as m;
 @use "sass:color";
 
-
 .sidebar {
     display: none;
     background-color: v.$indigo;

@@ -16,6 +16,9 @@
     .menu {
         img {
             width: .8rem;
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
     @include m.tablet {
