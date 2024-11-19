@@ -4,19 +4,35 @@
     const $$$ = (element, event, handler) => element.addEventListener(event, handler);
     const $$$$ = (father, son) => father.querySelector(son);
 
-    obtenerTareas();
+    obtenerTareas().then(r => {});
     let tareas = [];
+    let filtradas = [];
+
 
     // Botón para mostrar el modal de Aagregar Tarea
     const nuevaTareaBtn = $('#agregar-tarea');
-    /* Previamente "$$$(nuevaTareaBtn, 'click', mostrarFormulario)", pero si usamos esta función con un parámetro se va
-    * a ejecutar inmediatamente y no cuando el evento se desencadene. Es por esto que se usa un callback y, por otro lado
-    * de la forma antigua ocurría que se pasaba implícitamente el evento como parámetro, y ahora la función debe manejar
-    * un true o un false */
-
+    // Previamente "$$$(nuevaTareaBtn, 'click', mostrarFormulario)", pero si usamos esta función con un parámetro se va a ejecutar inmediatamente y no cuando el evento se desencadene. Es por esto que se usa un callback y, por otro lado de la forma antigua ocurría que se pasaba implícitamente el evento como parámetro, y ahora la función debe manejar un true o un false
     $$$(nuevaTareaBtn, 'click', () => {
         mostrarFormulario(); // False por default
     });
+
+    // Filtros de busqueda
+    const filtros = $$('#filtros input[type="radio"]');
+    filtros.forEach((filtro) => {
+        $$$(filtro, 'input', filtrarTareas);
+    });
+
+    function filtrarTareas(e) {
+        const filtro = e.target.value;
+        if(filtro !== '') {
+            console.log('Filtrar');
+            filtradas = tareas.filter(tarea => tarea.estado === filtro);
+        } else {
+            filtradas = [];
+        }
+
+        mostrarTareas();
+    }
 
     async function obtenerTareas() {
         try {
@@ -35,7 +51,9 @@
 
     function mostrarTareas() {
         limpiarTareas();
-        if(tareas.length === 0) {
+
+        const arrayTareas = filtradas.length ? filtradas : tareas;
+        if(arrayTareas.length === 0) {
             const contenedorTareas = $('#listado-tareas');
             const textoNoTareas = document.createElement('LI');
             textoNoTareas.textContent = 'No hay tareas';
@@ -48,7 +66,7 @@
             1: 'Completa'
         };
 
-        tareas.forEach(tarea => {
+        arrayTareas.forEach(tarea => {
             const contenedorTarea = document.createElement('LI');
             contenedorTarea.dataset.tareaId = tarea.id;
             contenedorTarea.classList.add('tarea');
