@@ -51,6 +51,8 @@
 
     function mostrarTareas() {
         limpiarTareas();
+        totalPendientes();
+        totalCompletas();
 
         const arrayTareas = filtradas.length ? filtradas : tareas;
         if(arrayTareas.length === 0) {
@@ -109,6 +111,23 @@
         });
     }
 
+    function totalPendientes() {
+        const totalPendientes = tareas.filter(tarea => tarea.estado === "0");
+        if(totalPendientes.length === 0) {
+            $('#pendientes').disabled = true;
+        } else {
+            $('#pendientes').disabled = false;
+        }
+    }
+
+    function totalCompletas() {
+        const totalCompletas = tareas.filter(tarea => tarea.estado === "1");
+        if(totalCompletas.length === 0) {
+            $('#completadas').disabled = true;
+        } else {
+            $('#completadas').disabled = false;
+        }
+    }
     function mostrarFormulario(editar = false, tarea = {}) {
         const modal = document.createElement('DIV');
         modal.classList.add('modal');
