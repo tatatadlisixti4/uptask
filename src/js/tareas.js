@@ -226,7 +226,6 @@
 
     async function actualizarTarea(tarea) {
         console.log(tarea);
-        return;
         const {estado, id, nombre} = tarea;
         const datos = new FormData();
         datos.append('estado', estado);
@@ -245,11 +244,20 @@
             });
             const resultado = await respuesta.json();
             if(resultado.respuesta.tipo === 'exito') {
-                mostrarAlerta(resultado.respuesta.mensaje, 'exito', $('.contenedor-nueva-tarea'));
+                // mostrarAlerta(resultado.respuesta.mensaje, 'exito', $('.contenedor-nueva-tarea'));
+                swal.fire(
+                    resultado.respuesta.mensaje, // Título del mensaje
+                    resultado.respuesta.mensaje, // Texto adicional o descripción
+                    'success' // Tipo de mensaje
+                );
 
+                $('.modal' )?.remove(); // Se consulta si el modal está activo antes de eliminarlo.
+
+                // Actualización Virtual DOM
                 tareas = tareas.map(tareaMemoria => { // Recorre y crea un nuevo arreglo sin mutar el original
                     if(tareaMemoria.id === id) {
                         tareaMemoria.estado = estado;
+                        tareaMemoria.nombre = nombre;
                     }
                     return tareaMemoria;
                 }); 
