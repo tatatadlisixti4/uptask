@@ -35,8 +35,6 @@
 
     function mostrarTareas() {
         limpiarTareas();
-        
-
         if(tareas.length === 0) {
             const contenedorTareas = $('#listado-tareas');
             const textoNoTareas = document.createElement('LI');
@@ -45,7 +43,6 @@
             contenedorTareas.appendChild(textoNoTareas);
             return;
         }
-
         const estados = {
             0: 'Pendiente', 
             1: 'Completa'
@@ -59,7 +56,7 @@
             const nombreTarea = document.createElement('P');
             nombreTarea.textContent = tarea.nombre;
             nombreTarea.ondblclick = function() {
-                mostrarFormulario(true, tarea);
+                mostrarFormulario(true, {...tarea});
             }
 
             const opcionesDiv = document.createElement('DIV')
@@ -95,7 +92,6 @@
     }
 
     function mostrarFormulario(editar = false, tarea = {}) {
-        console.log(tarea);
         const modal = document.createElement('DIV');
         modal.classList.add('modal');
         modal.innerHTML = `
@@ -142,22 +138,26 @@
                 }, 500);
             }
             if(e.target.classList.contains('submit-nueva-tarea')) {
-                submitFormularioNuevaTarea();
+                console.log("Submit");
+                //const tarea = $('#tarea').value.trim();
+                const nombreTarea = $('#tarea').value.trim();
+                if(nombreTarea === '') {
+                    mostrarAlerta('El nombre de la tarea es obligatorio', 'error', $('.formulario legend'));
+                    return;
+                }
+                if(editar) {
+                    console.log('Editando Tarea');
+                    tarea.nombre = nombreTarea;
+                    actualizarTarea(tarea);
+                } else {
+                    console.log('Agregando Tarea');
+                    agregarTarea(nombreTarea);
+                }
             }
-            
         });
         ($('.dashboard')).appendChild(modal); 
     }
 
-    function submitFormularioNuevaTarea() {
-        const tarea = $('#tarea').value.trim();
-        if(tarea === '') {
-            mostrarAlerta('El nombre de la tarea es obligatorio', 'error', $('.formulario legend'));
-            return;
-        }
-
-        agregarTarea(tarea);
-    }
     // Mostrar un mensaje en la interfaz
     function mostrarAlerta(mensaje, tipo, referencia) {
         const alertaPrevia = $('.alerta');
@@ -225,6 +225,8 @@
     }
 
     async function actualizarTarea(tarea) {
+        console.log(tarea);
+        return;
         const {estado, id, nombre} = tarea;
         const datos = new FormData();
         datos.append('estado', estado);
