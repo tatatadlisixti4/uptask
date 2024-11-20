@@ -74,7 +74,6 @@ class DashboardController {
         ]);
 
     }
-
     public static function perfil (Router $router): void {
         session_start();
         isAuth();
@@ -100,6 +99,16 @@ class DashboardController {
         $router->render('dashboard/perfil',  [
             'titulo' => 'Perfil',
             'usuario' => $usuario,
+            'alertas' => $alertas
+        ]);
+    }
+
+    public static function cambiar_password(Router $router): void {
+        session_start();
+        isAuth();
+        $alertas = [];
+        $router->render('dashboard/cambiar-password',  [
+            'titulo' => 'Cambiar Password',
             'alertas' => $alertas
         ]);
     }
