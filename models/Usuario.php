@@ -9,10 +9,10 @@ class Usuario extends ActiveRecord
     public function __construct($args = []) {
         $this->id =$args['id'] ?? null;
         $this->nombre = $args['nombre'] ??  '';
-	    $this->email = $args['email'] ??  '';
-	    $this->password = $args['password'] ??  '';
+        $this->email = $args['email'] ??  '';
+        $this->password = $args['password'] ??  '';
         $this->password2 = $args['password2'] ??  null;
-	    $this->token = $args['token'] ?? '';
+        $this->token = $args['token'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0; 
     }
 
@@ -55,6 +55,16 @@ class Usuario extends ActiveRecord
             self::$alertas['error'][] = 'Los Passwords son diferentes';
         }
         
+        return self::$alertas;
+    }
+
+    public function validarPerfil() {
+        if(!$this->nombre) {
+            self::$alertas['error'][] = 'El Nombre del Usuario es Obligatorio';
+        }
+        if(!$this->email) {
+            self::$alertas['error'][] = 'El Email del Usuario es Obligatorio';
+        }
         return self::$alertas;
     }
 
