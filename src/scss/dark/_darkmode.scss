@@ -29,6 +29,18 @@
     .barra-mobile {
         background-color: color.adjust($grisOscuro, $lightness: -7%);
     }
+
+    .filtros {
+        background-color: color.adjust($grisOscuro, $lightness: 10%);
+        h2,
+        label {
+            color: v.$blanco;
+        }
+        input[type="radio"] {
+            accent-color: $grisOscuro;
+        }
+
+    }
     .dashboard {
         background-color: $grisOscuro;
         .enlace {
@@ -43,6 +55,15 @@
         background-color: color.adjust($grisOscuro, $lightness: 20%);
         &:hover {
             background-color: color.adjust($grisOscuro, $lightness: 10%);
+        }
+    }
+
+    .listado-tareas .tarea {
+        background-color: color.adjust($grisOscuro, $lightness: 10%);
+        border: none;
+        p {
+            color: v.$grisClaro;
+
         }
     }
 
