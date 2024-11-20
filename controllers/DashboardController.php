@@ -5,10 +5,8 @@ use MVC\Router;
 use Model\Usuario;
 use Model\Proyecto;
 
-
-
 class DashboardController {
-    public static function index(Router $router) {
+    public static function index(Router $router): void {
         session_start();
         isAuth();
 
@@ -70,8 +68,6 @@ class DashboardController {
         if($proyecto->propietarioId !== $_SESSION['id']) {
             header('Location: /dashboard');
         } 
-        
-
 
         $router->render('dashboard/proyecto',  [
             'titulo' => $proyecto->proyecto
@@ -79,11 +75,15 @@ class DashboardController {
 
     }
 
-    public static function perfil (Router $router) {
+    public static function perfil (Router $router): void {
         session_start();
         isAuth();
+        $usuario = Usuario::find($_SESSION['id']);
+        $alertas = [];
         $router->render('dashboard/perfil',  [
             'titulo' => 'Perfil',
+            'usuario' => $usuario,
+            'alertas' => $alertas
         ]);
     }
 }
