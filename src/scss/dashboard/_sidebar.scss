@@ -3,9 +3,13 @@
 @use "sass:color";
 
 .sidebar {
-    display: none;
+    // No se puede animar de block a none, por eso de usa opacity
+    opacity: 0;
+    height: 0; // Altura 0
+    overflow: hidden; // Contenido que se desborda por el altura 0 se esconde
     background-color: v.$indigo;
-    padding: 2rem;
+
+    transition: opacity 300ms ease-in;
     h2 {
         color: v.$blanco;
         margin: 0;
@@ -29,7 +33,27 @@
         }
 
     }
+    &.mostrar {
+        opacity: 1;
+        height: 100%;
+        padding: 2rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgb(0 0 0 / .90);
+        @include m.tablet {
+            display: none;
+        }
+
+
+    }
+
     @include m.tablet {
-        display: block;
+        height: 100%;
+        opacity: 1;
+        padding: 2rem;
+        background-color: v.$indigo;
     }
 }

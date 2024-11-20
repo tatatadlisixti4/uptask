@@ -7,6 +7,6 @@ const sidebar = $('.sidebar');
 const mobileMenuBtn = $('#mobile-menu');
 if(mobileMenuBtn) {
      $$$(mobileMenuBtn, 'click', function () {
-         sidebar.classList.add('mostrar');
+         sidebar.classList.toggle('mostrar');
      });
-}
+}0
