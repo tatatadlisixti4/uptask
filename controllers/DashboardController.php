@@ -80,14 +80,21 @@ class DashboardController {
         isAuth();
         $usuario = Usuario::find($_SESSION['id']);
         $alertas = [];
+
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $usuario->sincronizar($_POST);
-            $alertas = $usuario->validarPerfil();
-            if(empty($alertas)) {
-                $usuario->guardar();
-                Usuario::setAlerta('exito', 'Perfil Actualizado');
-                $alertas = $usuario->getAlertas();
-                $_SESSION['nombre'] = $usuario->nombre;
+            $existeUsuario = Usuario::where('email', $_POST['email']);
+            if($existeUsuario && $existeUsuario->id !== $usuario->id) {
+                Usuario::setAlerta('error', 'El Usuario ya existe');
+                $alertas = Usuario::getAlertas();
+            } else {
+                $usuario->sincronizar($_POST);
+                $alertas = $usuario->validarPerfil();
+                if(empty($alertas)) {
+                    $usuario->guardar();
+                    Usuario::setAlerta('exito', 'Perfil Actualizado');
+                    $alertas = $usuario->getAlertas();
+                    $_SESSION['nombre'] = $usuario->nombre;
+                }
             }
         }
         $router->render('dashboard/perfil',  [
