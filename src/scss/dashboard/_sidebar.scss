@@ -8,12 +8,26 @@
     height: 0; // Altura 0
     overflow: hidden; // Contenido que se desborda por el altura 0 se esconde
     background-color: v.$indigo;
-
     transition: opacity 300ms ease-in;
-    h2 {
-        color: v.$blanco;
-        margin: 0;
-        text-align: center;
+
+    .contenedor-sidebar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+            color: v.$blanco;
+            margin: 0;
+            text-align: center;
+        }
+        .cerrar-menu {
+            height: 2rem;
+            width: 2rem;
+            img {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
     }
 
     .sidebar-nav {
@@ -31,7 +45,6 @@
                 background-color: color.adjust(v.$indigo, $lightness: -20%);
             }
         }
-
     }
     &.mostrar {
         opacity: 1;
@@ -46,10 +59,10 @@
         @include m.tablet {
             display: none;
         }
-
-
     }
-
+    &.ocultar {
+        opacity: 0;
+    }
     @include m.tablet {
         height: 100%;
         opacity: 1;
