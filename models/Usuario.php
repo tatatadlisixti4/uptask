@@ -83,12 +83,17 @@ class Usuario extends ActiveRecord
         return self::$alertas;
     }
 
+    // Comprobar el password
+    public function comprobar_password(): bool{
+        return password_verify($this->password_actual, $this->password);
+    }
+
     // Hashea el password
-    public function hashPassword() {
+    public function hashPassword(): void {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 
-    public function validarPassword() {
+    public function validarPassword(): array {
         if(!$this->password) {
             self::$alertas['error'][] = 'El Password del Usuario es Obligatorio';
         }
@@ -100,12 +105,12 @@ class Usuario extends ActiveRecord
     }
 
     // Generar un Token
-    public function crearToken() {
+    public function crearToken(): void {
         $this->token = uniqid(); // se puede combinar con mb5 pero habria que modificar el largo de la cadena en la bd
     }
 
     // Validar un email
-    public function validarEmail() {
+    public function validarEmail(): array {
         if(!$this->email) {
             self::$alertas['error'][] = 'El Email es Obligatorio';
         }
