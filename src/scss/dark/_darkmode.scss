@@ -15,14 +15,35 @@
         color: v.$blanco;
     }
     .descripcion-pagina,
-    .formulario .campo input{
-        color:  color.adjust(v.$grisClaro, $lightness: -15%);
+    .formulario .campo input,
+    .nombre-pagina{
+        color: color.adjust(v.$grisClaro, $lightness: -15%);
     }
     .formulario .campo input {
         background-color: color.adjust($grisOscuro, $lightness: 15%);
     }
     .alerta.error {
         background-color: v.$blanco;
+    }
+
+    .barra-mobile {
+        background-color: color.adjust($grisOscuro, $lightness: -7%);
+    }
+    .dashboard {
+        background-color: $grisOscuro;
+        .enlace {
+            color: v.$grisClaro;
+            &:hover {
+                color: color.adjust(v.$grisClaro, $lightness: -20%);
+            }
+        }
+    }
+
+    .listado-proyectos .proyecto {
+        background-color: color.adjust($grisOscuro, $lightness: 20%);
+        &:hover {
+            background-color: color.adjust($grisOscuro, $lightness: 10%);
+        }
     }
 
 }
