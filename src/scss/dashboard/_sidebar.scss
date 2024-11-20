@@ -27,6 +27,9 @@
                     cursor: pointer;
                 }
             }
+            @include m.tablet {
+                display: none;
+            }
         }
     }
 
@@ -35,17 +38,38 @@
         a {
             color: v.$blanco;
             display: block;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             padding: .7rem;
             border-radius: .5rem;
             transition: background-color 200ms ease-in;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 2.4rem;
+            text-align: center;
 
             &:hover,  
             &.activo{
                 background-color: color.adjust(v.$indigo, $lightness: -20%);
             }
+
+            @include m.tablet {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+                text-align: left;
+
+            }
         }
     }
+    .cerrar-sesion-mobile {
+        margin-top: 10rem;
+        .cerrar-sesion {
+            @include m.boton(v.$indigo, v.$blanco);
+        }
+        @include m.tablet {
+            display: none;
+        }
+    }
+
     &.mostrar {
         opacity: 1;
         height: 100%;
@@ -60,9 +84,11 @@
             display: none;
         }
     }
+
     &.ocultar {
         opacity: 0;
     }
+
     @include m.tablet {
         height: 100%;
         opacity: 1;
